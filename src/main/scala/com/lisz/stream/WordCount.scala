@@ -14,11 +14,12 @@ object WordCount {
     // 指定并行度：有多少个线程来处理
     env.setParallelism(1)
     // Datastream: 一组相同类型的元素组成的数据流, 注意⚠️：要在hadoop-01上启动一个socket：`nc -lk 8888`
+    // 如果数据源socket，则initStream的并行度只能是1
     val initStream:DataStream[String] = env.socketTextStream("hadoop-01", 8888)
-    val wordStream:DataStream[String] = initStream.flatMap(_.split("\\s+"))
-    val pairStream = wordStream.map((_, 1))
+    val wordStream:DataStream[String] = initStream.flatMap(_.split("\\s+")).setParallelism(20)
+    val pairStream = wordStream.map((_, 1)).setParallelism(20)
     val keyByStream = pairStream.keyBy(0) // 按照第一个位置为key
-    val restStream = keyByStream.sum(1)
+    val restStream = keyByStream.sum(1).setParallelism(20)
     restStream.print
 
     env.execute("First flink job")
