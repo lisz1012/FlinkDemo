@@ -1,7 +1,7 @@
-package com.lisz.stream
+package com.lisz.stream.source
 
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.streaming.api.scala._
+import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
+import org.apache.flink.api.scala._
 
 object ReadCollections {
   def main(args: Array[String]): Unit = {

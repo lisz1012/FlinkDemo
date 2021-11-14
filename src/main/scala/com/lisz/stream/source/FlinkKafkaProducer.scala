@@ -1,9 +1,10 @@
-package com.lisz.stream
+package com.lisz.stream.source
 
 import java.util.Properties
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.kafka.common.serialization.StringSerializer
+import org.apache.flink.api.scala._
 
 import scala.io.Source
 

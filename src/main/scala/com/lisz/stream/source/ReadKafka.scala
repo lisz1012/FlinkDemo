@@ -1,12 +1,10 @@
-package com.lisz.stream
+package com.lisz.stream.source
 
 import java.util.Properties
 
 import org.apache.flink.api.common.typeinfo.TypeInformation
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, createTuple2TypeInformation, createTypeInformation}
 import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer, KafkaDeserializationSchema}
-import org.apache.flink.streaming.api.scala._
-import org.apache.flink.util.StringUtils
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 
@@ -24,7 +22,7 @@ object ReadKafka {
       // 停止的条件是什么？
       override def isEndOfStream(nextElement: (String, String)): Boolean = false
 
-      // 进行反序列化的字节流
+      // 进行反序列化的字节流, producer生产的key和value都处理
       override def deserialize(record: ConsumerRecord[Array[Byte], Array[Byte]]): (String, String) =
         (new String(record.key()), new String (record.value()))
 
