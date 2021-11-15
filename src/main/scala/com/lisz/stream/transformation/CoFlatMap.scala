@@ -7,6 +7,7 @@ import org.apache.flink.util.Collector
 /**
  * 现在有一个配置文件，存储了车牌号和车主的真实姓名
  * 通过数据流中的车牌号实时匹配出车主的姓名（注意：配置文件可能实时改变）
+ * 配置文件实时改变，读的时候则需要 readFile，而不是readTextFile，因为前者可以指定一直读取，也就是监控
  */
 object CoFlatMap {
   def main(args: Array[String]): Unit = {
