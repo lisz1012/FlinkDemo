@@ -29,6 +29,7 @@ object WC2Redis {
 
       // 执行完毕前，调用的方法
       override def close(): Unit = {
+        println("closing")
         jedis.close()
       }
 
