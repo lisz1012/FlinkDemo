@@ -1,6 +1,7 @@
 package com.lisz.stream.source
 
 import java.util.Properties
+import java.util.concurrent.DelayQueue
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
@@ -20,6 +21,7 @@ object ReadKafkaNoKey {
 
     val stream = env.addSource(new FlinkKafkaConsumer[String]("flink-kafka", new SimpleStringSchema(), properties))
     stream.print
+    DelayQueue
     env.execute
   }
 }
