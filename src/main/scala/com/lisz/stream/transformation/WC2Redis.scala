@@ -27,7 +27,7 @@ object WC2Redis {
         jedis.select(3)
       }
 
-      // 执行完毕前，调用的方法。生命周期方法
+      // 执行完毕前，调用的方法。生命周期方法，是不是里面用Lettuce好一点？
       override def close(): Unit = {
         println("closing")
         jedis.close()
