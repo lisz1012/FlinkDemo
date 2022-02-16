@@ -16,7 +16,7 @@ object WC2Redis {
     val wcStream = stream.flatMap(_.split(" ")).map((_, 1)).keyBy(0).sum(1)
     wcStream.map(new RichMapFunction[(String, Int), String] {
       private var jedis:Jedis = _
-      // SubTask启动的时候，首先调用的方法
+      // SubTask启动的时候，首先调用的方法。
       override def open(parameters: Configuration): Unit = {
         // 获取Task的名字
         val name = getRuntimeContext.getTaskName
