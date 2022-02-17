@@ -6,7 +6,7 @@ import org.apache.flink.streaming.api.scala._ // 为了flink的隐式转换
 object WordCount {
   def main(args: Array[String]): Unit = {
     /**
-     * createLocalEnvironmentWithWebUI 创建一个本地执行的环境 local
+     * createLocalEnvironment 创建一个本地执行的环境 local
      * createLocalEnvironmentWithWebUI 创建了一个本地执行环境，同时还开起了Web UI的8081端口
      * getExecutionEnvironment 根据执行环境创建上下文，比如local、cluster
      */
@@ -18,8 +18,8 @@ object WordCount {
     val initStream:DataStream[String] = env.socketTextStream("hadoop-01", 8888)
     val wordStream:DataStream[String] = initStream.flatMap(_.split("\\s+")).setParallelism(2)
     val pairStream = wordStream.map((_, 1)).setParallelism(2)
-    val keyByStream = pairStream.keyBy(0) // 按照第一个位置为key
-    val restStream = keyByStream.sum(1)
+    val keyByStream = pairStream.keyBy(0) // 按照第一个位置为key, 而不是_后面的标量1
+    val restStream = keyByStream.sum(1) // 累加第二个位置，把各个1都加起来
     restStream.print
 
     env.execute("First flink job")
