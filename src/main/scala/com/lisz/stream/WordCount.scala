@@ -11,7 +11,7 @@ object WordCount {
      * getExecutionEnvironment 根据执行环境创建上下文，比如local、cluster
      */
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    // 指定并行度：有多少个线程来处理
+    // 指定并行度：有多少个线程来处理. 数据量很小但是线程很多的话，可能线程启动的时间比数据处理时间还长，适得其反
     env.setParallelism(1)
     // Datastream: 一组相同类型的元素组成的数据流, 注意⚠️：要在hadoop-01上启动一个socket：`nc -lk 8888`
     // 如果数据源socket，则initStream的并行度只能是1
