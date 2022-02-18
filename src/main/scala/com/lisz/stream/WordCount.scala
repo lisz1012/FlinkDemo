@@ -9,6 +9,9 @@ object WordCount {
      * createLocalEnvironment 创建一个本地执行的环境 local
      * createLocalEnvironmentWithWebUI 创建了一个本地执行环境，同时还开起了Web UI的8081端口
      * getExecutionEnvironment 根据执行环境创建上下文，比如local、cluster
+     *
+     * senv.socketTextStream("hadoop-02", 8888).flatMap(_.split(" ")).map((_,1)).keyBy(0).sum(1).print
+     * senv.execute("first shell job") // 执行这一句之前如果没有开启：nc -lk 8888,则会报错
      */
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     // 指定并行度：有多少个线程来处理. 数据量很小但是线程很多的话，可能线程启动的时间比数据处理时间还长，适得其反
