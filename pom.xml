@@ -109,6 +109,17 @@
                 <goal>compile</goal>
                 <goal>testCompile</goal>
               </goals>
+              <configuration>
+                <includes>
+                  <include>**/*.scala</include>
+                </includes>
+              </configuration>
+            </execution>
+            <execution>
+              <id>scala-test-compile</id>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
             </execution>
           </executions>
         </plugin>
@@ -125,6 +136,10 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -133,6 +148,27 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+        </plugin>
+        <!-- maven 打jar包需要插件 -->
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <!-- 设置false后是去掉 MySpark-1.0-SNAPSHOT-jar-with-dependencies.jar 后的 “-jar-with-dependencies” -->
+            <!--<appendAssemblyId>false</appendAssemblyId>-->
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
+          <executions>
+            <execution>
+              <id>make-assembly</id>
+              <phase>package</phase>
+              <goals>
+                <goal>assembly</goal>
+              </goals>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
