@@ -14,7 +14,7 @@ object WordCount {
      * senv.execute("first shell job") // 执行这一句之前如果没有开启：nc -lk 8888,则会报错
      */
     val env = StreamExecutionEnvironment.getExecutionEnvironment
-    // 指定并行度：有多少个线程来处理. 数据量很小但是线程很多的话，可能线程启动的时间比数据处理时间还长，适得其反
+    // 指定并行度：有多少个线程来处理. 数据量很小但是线程很多的话，可能线程启动的时间比数据处理时间还长，适得其反。如果并行度设置为1，则每个算子只会启动一个线程来处理数据
     env.setParallelism(1)
     // Datastream: 一组相同类型的元素组成的数据流, 注意⚠️：要在hadoop-01上启动一个socket：`nc -lk 8888`
     // 如果数据源socket，则initStream的并行度只能是1
