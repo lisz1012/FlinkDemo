@@ -10,6 +10,10 @@ import org.apache.flink.api.scala._
 /**
  * Flume->hdfs->flink实时ETL ->入仓
  * 监控HDFS or 本地目录中文件内容的变化（每隔100ms），一旦HDFS中的文件有追加/新建，则打印其中内容
+ * 启动程序后，
+ * 执行： hdfs dfs -put ./wc4 /flink/data/  或者
+ *       hdfs dfs -appendToFile ./wc4 /flink/data/wc4
+ * 就能看到实时的文件改变的结果的打印
  */
 object ReadHDFS {
   def main(args: Array[String]): Unit = {
