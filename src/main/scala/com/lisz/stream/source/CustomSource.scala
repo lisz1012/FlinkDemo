@@ -19,7 +19,7 @@ object CustomSource {
       override def run(ctx: SourceFunction.SourceContext[String]): Unit = {
         val random = new Random()
         while (flag) {
-          ctx.collect("Hello " + random.nextInt(100))
+          ctx.collect("Hello " + random.nextInt(100)) // 发射数据
           Thread.sleep(500)
         }
       }
