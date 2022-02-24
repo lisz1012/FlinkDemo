@@ -17,7 +17,7 @@ object KeyByOperator {
       .keyBy(x=>x._1)
 
 //      .sum(1)
-      .reduce((v1, v2) => { // flink去重怎么做？v1是上一次聚合后的结果，v2是本次的传入数据，都是key(_.1)相同的二元组
+      .reduce((v1, v2) => { // flink去重怎么做？v1是上一次聚合后的结果，v2是本次的传入数据，都是key(_.1)相同的二元组。
         (v1._1, v1._2 + v2._2)
       })
       .print
