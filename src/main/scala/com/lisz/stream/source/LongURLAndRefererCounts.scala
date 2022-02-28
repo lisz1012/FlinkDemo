@@ -21,11 +21,11 @@ object LongURLAndRefererCounts {
     properties.setProperty("key.deserializer", classOf[StringDeserializer].getName)
     properties.setProperty("value.deserializer", classOf[StringDeserializer].getName)
 
-    val refererTag = new OutputTag[(String, Int)]("Referer")
+    val refererTag = new OutputTag[(String, Int)]("Referer") // 侧输出流，类型是Tuple2，统计referer
 
     val stream = env.addSource(new FlinkKafkaConsumer[String]("long-url", new SimpleStringSchema(), properties)) //(new FlinkKafkaConsumer[(String, String)]())
     // processStream是主流, 关于long-url的统计
-    val processStream = stream.process(new ProcessFunction[String, (String, Int)] {
+    val processStream = stream.process(new ProcessFunction[String, (String, Int)] { // 输入是String，主流的输出也是Tuple2
       override def processElement(value: String, ctx: ProcessFunction[String, (String, Int)]#Context, out: Collector[(String, Int)]): Unit = {
         // http://www.google.com no_referer
         val splits = value.split("\\s+")
