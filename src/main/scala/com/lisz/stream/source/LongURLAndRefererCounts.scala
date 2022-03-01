@@ -34,7 +34,7 @@ object LongURLAndRefererCounts {
       }
     })
     val refererStream = processStream.getSideOutput(refererTag)
-
+    // 分流统计
     processStream.keyBy(0).sum(1).print
     refererStream.keyBy(0).sum(1).print
 
