@@ -16,7 +16,7 @@ object LongURLAndRefererCounts {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val properties = new Properties
     properties.setProperty("bootstrap.servers", "Kafka_1:9092,Kafka_2:9092,Kafka_3:9092")
-    // 注意当初在讲 spark streaming + Kafka receiver模式，要去传zk 的url（元数据）
+    // 注意当初在讲 spark streaming + Kafka receiver模式，要去传zk 的url（元数据）。
     properties.setProperty("group.id", "flink-group-001")
     properties.setProperty("key.deserializer", classOf[StringDeserializer].getName)
     properties.setProperty("value.deserializer", classOf[StringDeserializer].getName)
