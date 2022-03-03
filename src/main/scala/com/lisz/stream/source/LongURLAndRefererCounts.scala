@@ -21,7 +21,7 @@ object LongURLAndRefererCounts {
     properties.setProperty("key.deserializer", classOf[StringDeserializer].getName)
     properties.setProperty("value.deserializer", classOf[StringDeserializer].getName)
 
-    val refererTag = new OutputTag[(String, Int)]("Referer") // 侧输出流，类型是Tuple2，统计referer
+    val refererTag = new OutputTag[(String, Int)]("Referer") // 侧输出流，类型是Tuple2，统计referer。
 
     val stream = env.addSource(new FlinkKafkaConsumer[String]("long-url", new SimpleStringSchema(), properties)) //(new FlinkKafkaConsumer[(String, String)]())
     // processStream是主流, 关于long-url的统计
