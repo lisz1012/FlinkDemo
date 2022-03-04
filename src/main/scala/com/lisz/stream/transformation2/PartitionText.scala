@@ -5,6 +5,8 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 shuffle增大分区数。此时最好用shuffle或者rebalance。而rescale分发得不会特别均匀
 shuffle - 随机
 rebalance - 轮询
+这两个算子能尽可能保证在数据量比较小的情况下，把数据比较均匀的发送到下游。常用的场景是发生了数据倾斜之后，可以将数据均衡一下，
+或者当需要提高并行读的时候
  */
 object PartitionText {
   def main(args: Array[String]): Unit = {

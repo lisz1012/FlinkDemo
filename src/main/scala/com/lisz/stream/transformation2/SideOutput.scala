@@ -11,7 +11,8 @@ object SideOutput {
     val stream = env.socketTextStream("hadoop-01", 8888)
     val gtTag = new OutputTag[String]("gt") // 侧输出流还是对不同的数据打了个标签
     val ltTag = new OutputTag[String]("lt") // 侧输出流还是对不同的数据打了个标签
-    // process可以理解成是一个flink的算子，process是一个比较底层的API，可以拿到很多map、flatMap拿不到的底层API
+    // process可以理解成是一个flink的算子，process是一个比较底层的API，可以拿到很多map、flatMap拿不到的底层API，实现更复杂的需求，比富函数对象能拿到的还要多
+    // 拿到了更底层的这个上下文Context才能把数据放到侧输出流中去。侧输出流需要打标签，主输出流不用
     val processStream = stream.process(new ProcessFunction[String, String] {
       override def processElement(value: String, ctx: ProcessFunction[String, String]#Context, out: Collector[String]): Unit = {
         val longVar = value.toLong

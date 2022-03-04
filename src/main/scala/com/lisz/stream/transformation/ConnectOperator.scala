@@ -17,6 +17,7 @@ object ConnectOperator {
     val ds2 = env.socketTextStream("hadoop-01", 9999)
     val wcStream1 = ds1.flatMap(_.split(" ")).map((_, 1)).keyBy(0).sum(1)
     val wcStream2 = ds2.flatMap(_.split(" ")).map((_, 1)).keyBy(0).sum(1)
+    // comap属于假合并，不同的map同不同的逻辑处理不同的源流：
     val connectedStream = wcStream2.connect(wcStream1)
     connectedStream.map(new CoMapFunction[(String, Int), (String, Int), (String, Int)] {
       // 处理wcStream2（前面的）中的元素

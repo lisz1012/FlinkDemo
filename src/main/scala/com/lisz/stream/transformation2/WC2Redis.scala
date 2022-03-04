@@ -11,7 +11,7 @@ object WC2Redis {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val stream = env.socketTextStream("hadoop-01", 8888)
     val restStream = stream.flatMap(_.split("\\s+")).map((_, 1)).keyBy(0).sum(1)
-    restStream.map(new RichMapFunction[(String, Int), String] {
+    restStream.map(new RichMapFunction[(String, Int), String] { // 富函数类可以拿到上下文、生命周期方法、管理状态 等等
       var jedis: Jedis = _
       // open这个方法在线程或者sub-task被启动的时候首先被调用
       override def open(parameters: Configuration): Unit = {
