@@ -8,7 +8,7 @@ rebalance - 轮询
 这两个算子能尽可能保证在数据量比较小的情况下，把数据比较均匀的发送到下游。常用的场景是发生了数据倾斜之后，可以将数据均衡一下，
 或者当需要提高并行读的时候
  */
-object PartitionText {
+object ShuffleTest {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val stream = env.generateSequence(1, 10).setParallelism(1)

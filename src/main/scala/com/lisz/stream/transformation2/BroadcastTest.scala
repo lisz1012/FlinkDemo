@@ -7,7 +7,7 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
   把这个Kafka的数据流往下又的每个分区中都broadcast一份，则下又的每个分区都能收到映射表的信息。细节：如果业务流比映射流启动的还早，则导致
   映射流映射不出任何信息，将来可以通过 Redis + MySQL 来解决这些问题。
  */
-object BroadcastText {
+object BroadcastTest {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val stream = env.generateSequence(1, 10).setParallelism(2)
