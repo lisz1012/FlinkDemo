@@ -10,7 +10,7 @@ import org.apache.flink.streaming.api.functions.sink.{RichSinkFunction, SinkFunc
 import scala.collection.mutable.ListBuffer
 
 /**
- * 要启动com.lisz.stream.source.FlinkKafkaProducer和Kafka消息队列
+ * 要启动com.lisz.stream.source.FlinkKafkaProducer和Kafka消息队列.
  * WordCount 结果写入MySQL。MySQL看生病不支持幂等操作
  * 代码实现幂等操作
  * flink 1
