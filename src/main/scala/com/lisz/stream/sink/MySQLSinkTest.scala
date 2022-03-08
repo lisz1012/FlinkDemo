@@ -14,7 +14,7 @@ import scala.collection.mutable.ListBuffer
  * WordCount 结果写入MySQL。MySQL原生不支持幂等操作
  * 代码实现幂等操作
  * flink 1
- * flink 2 -> flink 3 (先尝试update，更新不成功或者更新0条数据，才insert)
+ * flink 2 -> flink 3 (先尝试update，更新不成功或者更新0条数据，才insert)。
  * flink 3
  *
  * MySQL不是Flink内嵌支持的，所以需要自定义Sink、导入MySQL驱动包
