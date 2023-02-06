@@ -6,6 +6,7 @@ import org.apache.flink.streaming.api.scala._ // 为了flink的隐式转换
 object WordCount {
   def main(args: Array[String]): Unit = {
     /**
+     * ⚠️注意，要设置为JDK为1.8
      * createLocalEnvironment 创建一个本地执行的环境 local
      * createLocalEnvironmentWithWebUI 创建了一个本地执行环境，同时还开起了Web UI的8081端口
      * getExecutionEnvironment 根据执行环境创建上下文，比如local、cluster
