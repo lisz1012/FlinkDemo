@@ -12,7 +12,7 @@ object WordCount {
      * getExecutionEnvironment 根据执行环境创建上下文，比如local、cluster
      *
      * senv.socketTextStream("hadoop-02", 8888).flatMap(_.split(" ")).map((_,1)).keyBy(0).sum(1).print
-     * senv.execute("first shell job") // 执行这一句之前如果没有开启：nc -lk 8888,则会报错.
+     * senv.execute("first shell job") // 执行这一句之前如果没有开启：nc -lk 8888,则会报错
      */
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     // 指定并行度：有多少个线程来处理. 数据量很小但是线程很多的话，可能线程启动的时间比数据处理时间还长，适得其反。如果并行度设置为1，则每个算子只会启动一个线程来处理数据
