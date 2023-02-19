@@ -21,11 +21,11 @@ object WordCount {
     // Datastream: 一组相同类型的元素组成的数据流, 注意⚠️：要在hadoop-01上启动一个socket：`nc -lk 8888`
     // 如果数据源socket，则initStream的并行度只能是1
     val initStream:DataStream[String] = env.socketTextStream("hadoop-01", 8888)
-    val wordStream:DataStream[String] = initStream.flatMap(_.split("\\s+")).setParallelism(3)//.startNewChain()//.disableChaining()//.setParallelism(2) //startNewChain() // 从这个算子开始，另起一个新的task. 如果分区数不相等，仍然不会合并task //.disableChaining() // disable就不让这个算子和他之后的算子组成chain了，跟前面也断开了 //.setParallelism(2)
-    val pairStream = wordStream.map((_, 1)).setParallelism(3) //.setParallelism(3)
+    val wordStream:DataStream[String] = initStream.flatMap(_.split("\\s+")).setParallelism(12)//.startNewChain()//.disableChaining()//.setParallelism(2) //startNewChain() // 从这个算子开始，另起一个新的task. 如果分区数不相等，仍然不会合并task //.disableChaining() // disable就不让这个算子和他之后的算子组成chain了，跟前面也断开了 //.setParallelism(2)
+    val pairStream = wordStream.map((_, 1)).setParallelism(12) //.setParallelism(3)
     val keyByStream = pairStream.keyBy(0) // 按照第一个位置为key, 而不是_后面的标量1.keyBy是分流算子，不能设置并行度
-    val restStream = keyByStream.sum(1).setParallelism(3) //.setParallelism(2) // 累加第二个位置，把各个1都加起来
-    restStream.print.setParallelism(1)
+    val restStream = keyByStream.sum(1).setParallelism(12) //.setParallelism(2) // 累加第二个位置，把各个1都加起来
+    restStream.print
 
     env.execute("First flink job")
 
