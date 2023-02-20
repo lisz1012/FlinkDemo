@@ -13,7 +13,7 @@ import org.apache.flink.api.scala._
  * 启动程序后，
  * 执行： hdfs dfs -put ./wc4 /flink/data/  或者
  *       hdfs dfs -appendToFile ./wc4 /flink/data/wc4
- * 就能看到实时的文件改变的结果的打印
+ * 就能看到实时的文件改变的结果的打印.
  *
  * Flume->hdfs->flink实时ETL ->入仓 也行
  */
