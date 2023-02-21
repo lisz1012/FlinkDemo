@@ -6,7 +6,7 @@ import org.apache.flink.api.scala._
 
 import scala.util.Random
 
-// 自定义数据源
+// 自定义数据源. 自己发射自己接收
 object CustomSource {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment

@@ -16,11 +16,11 @@ object FlinkKafkaProducer {
     properties.setProperty("value.serializer", classOf[StringSerializer].getName)
 
     val producer = new KafkaProducer[String, String](properties)
-    // 不要轻易调用这个方法
+    // 不要轻易调用这个方法, 因为他会把文件中的所有数据都封装到一个集合里面去
     val iter = Source.fromFile("./data/data_carFlow_all_column_test.txt").getLines()
     for (i <- 1 to 100) {
       for (elem <- iter) {
-        // 0235
+        // 0235 只要卡口号、车牌号、时间戳、车速
         val splits = elem.split(",")
         val monitorId = splits(0).replace("'", "")
         val carId = splits(2).replace("'", "")

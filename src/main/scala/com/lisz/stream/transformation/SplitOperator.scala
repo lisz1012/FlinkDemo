@@ -10,7 +10,7 @@ object SplitOperator {
     // 偶数分到一个流first 奇数分到另外一个流second
     val splitStream = stream.split(d => {
       d % 2 match {
-        // 并不是真的分流了，还是一个data stream，而是打了标签，然后可以用select选择
+        // 并不是真的分流了，还是一个data stream，而是打了标签：first和second，然后可以用select选择
         case 0 => List("first")
         case 1 => List("second")
       }

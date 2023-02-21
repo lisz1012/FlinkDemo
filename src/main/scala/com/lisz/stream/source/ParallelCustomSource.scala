@@ -24,7 +24,7 @@ object ParallelCustomSource {
 
       override def cancel(): Unit = flag = false
     }).setParallelism(2)
-    stream.print.setParallelism(2) // 都设置成2,才能只是用两个线程来打印
+    stream.print.setParallelism(2) // 都设置成2,才能只是用两个线程来打印, 或者env.setParallelism(2)
     env.execute
   }
 
