@@ -11,7 +11,7 @@ object CustomSource {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     // [String] 代表发射的数据类型/
-    // 如果是机遇SourceFunction接口实现自定义的数据源，则这个数据源只支持单线程.
+    // 如果是机遇SourceFunction接口实现自定义的数据源，则这个数据源只支持单线程
     val stream = env.addSource[String](new SourceFunction[String] {
       var flag = true
 
