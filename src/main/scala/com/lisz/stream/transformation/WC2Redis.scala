@@ -7,14 +7,14 @@ import org.apache.flink.configuration.Configuration
 import redis.clients.jedis.Jedis
 
 /**
- * 将WoudCount的结果写入Redis中
+ * 将WoudCount的结果写入Redis中. 主要是想展示RichFunction 富函数
  */
 object WC2Redis {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val stream = env.socketTextStream("hadoop-01", 8888)
     val wcStream = stream.flatMap(_.split(" ")).map((_, 1)).keyBy(0).sum(1)
-    wcStream.map(new RichMapFunction[(String, Int), String] {
+    wcStream.map(new RichMapFunction[(String, Int), String] { // 输入一个kv对 tuple2，输出一个String
       private var jedis:Jedis = _
       // SubTask启动的时候，首先调用的方法。
       override def open(parameters: Configuration): Unit = {

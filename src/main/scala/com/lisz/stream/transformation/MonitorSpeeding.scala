@@ -18,6 +18,7 @@ object MonitorSpeeding {
       val splits = x.split(" ")
       CarInfo(splits(0), splits(1).toInt)
     }).keyBy(_.carId).process(new KeyedProcessFunction[String, CarInfo, String] { // 前面有keyBy，这里就得有Keyed
+      // 只是注册一个一段时间之后的事件，具体到时候什么行为，则要看onTimer方法里的逻辑
       override def processElement(value: CarInfo, ctx: KeyedProcessFunction[String, CarInfo, String]#Context, out: Collector[String]): Unit = {
         val currentTime = ctx.timerService().currentProcessingTime
         if (value.speed > 100) {

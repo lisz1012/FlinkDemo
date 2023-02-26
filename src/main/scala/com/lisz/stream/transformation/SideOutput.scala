@@ -11,7 +11,7 @@ object SideOutput {
     val stream = env.socketTextStream("hadoop-01", 8888)
     val excellentTag = new OutputTag[String]("Excellent")
     val failedTag = new OutputTag[String]("Failed")
-    // process可以理解成Flink的一个算子，process属于底层的API，可以拿到很多map、flatMap所拿不到的信息
+    // process可以理解成Flink的一个算子，process属于底层的API，可以拿到很多map、flatMap所拿不到的信息，需要接受一个ProcessFunction
     val processStream = stream.process(new ProcessFunction[String, String] {
       // 处理每一个元素：value，Collector负责往下游发射
       override def processElement(value: String, ctx: ProcessFunction[String, String]#Context, out: Collector[String]): Unit = {

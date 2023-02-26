@@ -12,7 +12,7 @@ object Iterate {
     val initStream = env.socketTextStream("hadoop-01", 8888)
     val stream = initStream.map(_.toInt)
     /**
-     * iterate 算子提供了对数据流迭代的支持。迭代由两部分组成：迭代题和终止迭代条件
+     * iterate 算子提供了对数据流迭代的支持。迭代由两部分组成：迭代体和终止迭代条件
      * 不满足终止迭代条件的数据流会返回到stream流中，进行下一次迭代
      * 满足终止条件的数据流继续往下游发送
      */
@@ -26,7 +26,7 @@ object Iterate {
             x
           }
         })
-        (iterationBody.filter(_ > 0), iterationBody.filter(_ <= 0)) // 第一个流会再次被传回到迭代体，第二个则会发射到下游去
+        (iterationBody.filter(_ > 0), iterationBody.filter(_ <= 0)) // 返回一个DataStream二元组，第一个流会再次被传回到迭代体，第二个则会发射到下游去
       }).print()
     env.execute()
   }

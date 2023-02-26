@@ -13,7 +13,7 @@ import org.apache.flink.api.scala._
  * 1。从Kafka中消费数据，统计各个卡口的流量
  * 数据如车流，一条条地来，每来一条立马处理。如果有n个线程处理reduce算子，每个线程里会保存一个key上一次聚合的结果，
  * 每个线程并没有维护太多的数据，很多都立刻就聚合简并了，这不是个批计算，而是流计算。key的分配跟Kafka或者Spark窄依赖
- * 一样：一个key只能由某一个线程（sub task）处理；一个线程可以处理多个key
+ * 一样：一个key只能由某一个线程（sub task）处理；一个线程可以处理多个key, 但是一个key不能被多个线程所处理
  *
  * 2。从Kafka中消费数据，统计每一分钟每一卡口的流量：把时间应设成分钟字段，应设成word count
  *
@@ -33,7 +33,7 @@ object CarFlowAnalysis {
       val splits = x.split("\t")
       val timeMinute = splits(2)
       println(timeMinute)
-      (timeMinute.substring(0, timeMinute.length - 3), 1)
+      (timeMinute.substring(0, timeMinute.length - 3), 1) // 把时间映射成分钟字段，做wc
 
       // val splits = x.split("\t")
       // (splits(0), 1)
