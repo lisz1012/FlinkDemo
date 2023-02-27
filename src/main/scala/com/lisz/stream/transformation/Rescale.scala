@@ -3,7 +3,7 @@ package com.lisz.stream.transformation
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
 /**
- * 减少分区，防止大量的网络传输。但是这个分区方法分的不一定均匀，上游数据倾斜的话，下游也会倾斜
+ * 减少分区，防止大量的网络传输。但是这个分区方法分的不一定均匀，上游数据倾斜的话，下游也会倾斜。
  */
 object Rescale {
   def main(args: Array[String]): Unit = {
