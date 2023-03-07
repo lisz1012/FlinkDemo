@@ -17,6 +17,7 @@ object ValueStateTest {
     }).keyBy(_.carId)
       .map(new RichMapFunction[CarInfo, String] { // 泛型是输入（上面keyBy所操作的_的类型）和输出类型
       // 下面如果定义普通的变量，则并不会持久化到外部存储，下次重启程序的时候则会从0开始
+      // 先定义（ValueState： _），open读, map写
       private var lastTempState: ValueState[Long] = _
       override def open(parameters: Configuration): Unit = {
         val desc = new ValueStateDescriptor[Long]("lastSpeed", createTypeInformation[Long])
