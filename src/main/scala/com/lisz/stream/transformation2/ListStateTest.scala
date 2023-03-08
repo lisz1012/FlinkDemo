@@ -31,7 +31,7 @@ object ListStateTest {
     props.setProperty("key.deserializer", classOf[StringDeserializer].getName)
     props.setProperty("value.deserializer", classOf[StringDeserializer].getName)
 
-    // 卡口号、车牌号、eventTime、车速
+    // 卡口号、车牌号、eventTime、车速.
     val stream = env.addSource(new FlinkKafkaConsumer[String]("flink-kafka", new SimpleStringSchema(), props))
     val format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss")
     stream.map(data=>{
