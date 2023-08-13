@@ -22,7 +22,7 @@ object ReadHDFS {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     val filePath = "hdfs://mycluster/flink/data/"  // hdfs-site和core-site两个xml为难要放在resources目录下
     val format = new TextInputFormat(new Path(filePath))
-    format.setFilesFilter(FilePathFilter.createDefaultFilter)  // 可选设置，可以把files starting with ".", "_", and "_COPYING_"这些临时文件的变化从监控中过滤掉
+    format.setFilesFilter(FilePathFilter.createDefaultFilter)  // 可选设置，可以把files starting with ".", "_", and "_COPYING_"这些临时文件的变化从监控中过滤掉.
     format.setCharsetName("UTF-8")                             // 可选设置
 
     val stream = env.readFile(format, filePath, FileProcessingMode.PROCESS_CONTINUOUSLY, 100) // 需要导入隐式转换：import org.apache.flink.api.scala._
