@@ -30,5 +30,4 @@ object ReadHDFS {
 
     env.execute
   }
-
 }
