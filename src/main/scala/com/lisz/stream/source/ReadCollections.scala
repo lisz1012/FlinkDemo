@@ -14,5 +14,4 @@ object ReadCollections {
     env.execute
     // 默认会用满机器上所有的线程
   }
-
 }

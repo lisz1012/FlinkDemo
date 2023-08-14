@@ -19,7 +19,6 @@ object ParallelCustomSource {
           ctx.collect("hello, " + random.nextInt(100))
           Thread.sleep(500)
         }
-
       }
 
       override def cancel(): Unit = flag = false
@@ -27,5 +26,4 @@ object ParallelCustomSource {
     stream.print.setParallelism(2) // 都设置成2,才能只是用两个线程来打印, 或者env.setParallelism(2)
     env.execute
   }
-
 }

@@ -35,7 +35,5 @@ object FlinkKafkaProducer {
         Thread.sleep(500)
       }
     }
-
   }
-
 }

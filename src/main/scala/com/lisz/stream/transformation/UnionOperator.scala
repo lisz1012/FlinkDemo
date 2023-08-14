@@ -13,5 +13,4 @@ object UnionOperator {
     unionStream.print
     env.execute
   }
-
 }

@@ -17,8 +17,6 @@ object SplitOperator {
     })
     // select 通过标签获取指定流
     splitStream.select("first").print.setParallelism(1)
-
     env.execute
   }
-
 }

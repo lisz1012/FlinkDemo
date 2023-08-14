@@ -18,6 +18,7 @@ object ReadKafkaNoKey {
     properties.setProperty("value.deserializer", classOf[StringDeserializer].getName)
     properties.setProperty("group.id", "flink-kafka-001")
 
+    // SimpleStringSchema只读 Kafka 里的 value
     val stream = env.addSource(new FlinkKafkaConsumer[String]("flink-kafka", new SimpleStringSchema(), properties))
     stream.print
     env.execute

@@ -6,7 +6,7 @@ import org.apache.flink.api.scala._
 
 import scala.util.Random
 
-// 自定义数据源. 自己发射自己接收
+//  用 SourceFunction 自定义数据源. 自己发射自己接收
 object CustomSource {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -15,7 +15,7 @@ object CustomSource {
     val stream = env.addSource[String](new SourceFunction[String] {
       var flag = true
 
-      // 发射数据. 读取任何地方（例如Redis）的数据，然后将其发射出去
+      // 发射数据. 读取任何地方（例如Redis）的数据，然后将其发射出去, stream.print 算子接着处理
       override def run(ctx: SourceFunction.SourceContext[String]): Unit = {
         val random = new Random()
         while (flag) {
@@ -30,5 +30,4 @@ object CustomSource {
     stream.print
     env.execute
   }
-
 }

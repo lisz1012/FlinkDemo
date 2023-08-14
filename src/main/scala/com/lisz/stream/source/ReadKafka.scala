@@ -31,9 +31,9 @@ object ReadKafka {
         createTuple2TypeInformation(createTypeInformation[String], createTypeInformation[String])
       }
     }
-    val stream = env.addSource(new FlinkKafkaConsumer[(String, String)]("flink-kafka", schema, properties)) //(new FlinkKafkaConsumer[(String, String)]())
+    //(new FlinkKafkaConsumer[(String, String)]())
+    val stream = env.addSource(new FlinkKafkaConsumer[(String, String)]("flink-kafka", schema, properties))
     stream.print
     env.execute
   }
-
 }
