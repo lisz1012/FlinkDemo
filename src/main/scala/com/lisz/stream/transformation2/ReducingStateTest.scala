@@ -21,7 +21,7 @@ object ReducingStateTest {
         private var speedCount: ReducingState[Long] = _
         override def open(parameters: Configuration): Unit = {
           val desc = new ReducingStateDescriptor[Long]("xxx", new RichReduceFunction[Long] {
-            override def reduce(value1: Long, value2: Long): Long = {
+            override def reduce(value1: Long, value2: Long): Long = { // value1 是上次聚合的状态, value2 是当前加入的元素
               value1 + value2
             }
           }, createTypeInformation[Long])
@@ -29,7 +29,7 @@ object ReducingStateTest {
         }
 
         override def map(value: (String, Long)): (String, Long) = {
-          speedCount.add(value._2)
+          speedCount.add(value._2) // 这里每添加一个元素,就会调用一次上面的 reduce 方法, 往下追代码, 会看到ReduceFunction.reduce()
           (value._1, speedCount.get())
         }
       })

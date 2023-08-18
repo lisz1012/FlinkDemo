@@ -12,8 +12,6 @@ import org.apache.flink.streaming.api.scala._
 import java.text.SimpleDateFormat
 import java.util.Properties
 import scala.collection.JavaConverters._
-import scala.collection.mutable
-import scala.util.Properties
 
 /**
  * 统计每一辆车的运行轨迹

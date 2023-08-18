@@ -22,12 +22,12 @@ object AggregatingStateTest {
           val desc = new AggregatingStateDescriptor[Long, Long, Long]("agg", new RichAggregateFunction[Long, Long, Long] {
             // 初始化一个累加器 spark combineByKy的第一个函数
             override def createAccumulator(): Long = 0
-            // 每来一条数据会调用一次  spark combineByKy第二个函数
+            // 每来一条数据会调用一次  spark combineByKy第二个函数, value 是当前的数据
             override def add(value: Long, accumulator: Long): Long = accumulator + value
-
+            // 把最后的这结果返回
             override def getResult(accumulator: Long): Long = accumulator
-            // spark combineByKy第三个函数
-            override def merge(acc1: Long, acc2: Long): Long = acc1 + acc2  // a和b是两个不同的累加器
+            // spark combineByKy第三个函数, acc1 和 acc2来自不同的上游分区, 经历了 shuffle
+            override def merge(acc1: Long, acc2: Long): Long = acc1 + acc2  // acc1和acc2是两个不同的累加器
           }, createTypeInformation[Long])
           speedCount = getRuntimeContext.getAggregatingState(desc)
         }
