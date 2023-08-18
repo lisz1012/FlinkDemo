@@ -52,7 +52,7 @@ object ListStateTest {
           val sortedList = seq.toList.sortBy(_._2)
           val builder = new StringBuilder
           for (elem <- sortedList) {
-            builder.append(elem._1 + "\t")
+            builder.append(elem._1 + "\t") // elem._1是卡口号
           }
           (value._2, builder.toString())
         }

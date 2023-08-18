@@ -31,16 +31,16 @@ object MySQLSinkTest {
     .reduce((v1: (String, Int), v2: (String, Int)) => {
      (v1._1, v1._2 + v2._2)
     })
-    .addSink(new RichSinkFunction[(String, Int)] {
+    .addSink(new RichSinkFunction[(String, Int)] { // 有生命周期方法
       var conn:Connection = _
       var updatestmt: PreparedStatement = _
       var insertstmt: PreparedStatement = _
-      // 每过来一个元素会被调用一次
+      // 每过来一个元素都会被调用一次
       override def invoke(value: (String, Int), context: SinkFunction.Context[_]): Unit = {
         updatestmt = conn.prepareStatement("update wc set count = ? where word = ?")
         updatestmt.setString(2, value._1)
         updatestmt.setInt(1, value._2)
-        if (updatestmt.executeUpdate == 0) {
+        if (updatestmt.executeUpdate == 0) { // 没有 value._1 这么个单词
           insertstmt = conn.prepareStatement("insert into wc values (?, ?)")
           insertstmt.setString(1, value._1)
           insertstmt.setInt(2, value._2)
@@ -48,7 +48,7 @@ object MySQLSinkTest {
         }
       }
 
-      // 开始执行业务逻辑之前会调用一次。
+      // 线程开始执行业务逻辑之前会调用一次。
       override def open(parameters: Configuration): Unit = {
         Class.forName("com.mysql.cj.jdbc.Driver")
         conn = DriverManager.getConnection("jdbc:mysql://mysql-1:3306/test", "root", "P@ssw0rd")
