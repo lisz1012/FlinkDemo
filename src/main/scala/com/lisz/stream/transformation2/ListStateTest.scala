@@ -36,7 +36,7 @@ object ListStateTest {
       val arr = data.split("\t")
       val time = format.parse(arr(2)).getTime
       (arr(0), arr(1), time, arr(3).toLong)
-    }).keyBy(_._2)
+    }).keyBy(_._2) // 已经根据车牌号分组了
       .map(new RichMapFunction[(String, String, Long, Long), (String, String)] {
         // 有点像时序数据
         private var carInfos: ListState[(String, Long)] = _
