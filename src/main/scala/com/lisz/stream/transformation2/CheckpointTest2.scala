@@ -7,6 +7,9 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.streaming.api.scala._
 
 // 这个演示要打包后上传到集群运行, 先开启 nc 再提交启动 Flink application
+// flink run -c com.lisz.stream.transformation2.CheckpointTest2 -d ~./FlinkDemo-1.0-SNAPSHOT.jar
+// 在 WebUI 上 Cancel 之后再次提交:
+// flink run -c com.lisz.stream.transformation2.CheckpointTest2 -d -s hdfs://hadoop-01:9000/flink/checkpoint/JOB_ID/chk-xxx  ~./FlinkDemo-1.0-SNAPSHOT.jar
 object CheckpointTest2 {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
