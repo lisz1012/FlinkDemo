@@ -22,7 +22,7 @@ object ReadKafka {
       // 停止的条件是什么？
       override def isEndOfStream(nextElement: (String, String)): Boolean = false
 
-      // 进行反序列化的字节流, producer生产的key和value都处理
+      // 进行反序列化的字节流, producer生产的key和value都处理.
       override def deserialize(record: ConsumerRecord[Array[Byte], Array[Byte]]): (String, String) =
         (new String(record.key()), new String (record.value()))
 
